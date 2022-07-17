@@ -1,6 +1,6 @@
 import { Card } from "antd";
 import { useNavigate } from "react-router-dom";
-import NewUploadForm from "../../components/new-unit-form/NewUploadForm";
+import NewUploadForm from "../../components/new-upload-form/NewUploadForm";
 
 const NewUpload = () => {
   const navigate = useNavigate();

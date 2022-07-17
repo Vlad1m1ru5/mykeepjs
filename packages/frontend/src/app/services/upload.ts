@@ -1,21 +1,34 @@
-import type { Upload, UploadData } from "../models/upload";
 import { api } from "./api";
 
-const uploadsApi = api.injectEndpoints({
+export type Upload = {
+  id: string;
+  data: UploadData;
+};
+
+export type UploadData = {
+  name: string;
+  scope: string;
+  version: string;
+  match: UploadMatch;
+};
+
+export type UploadMatch = "major" | "minor" | "patch";
+
+const uploadApi = api.injectEndpoints({
   endpoints: (build) => ({
     getAllUploads: build.query<Upload[], void>({
       query: () => "/uploads.json",
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Uploads" as const, id })),
-              { type: "Uploads", id: "LIST" },
+              ...result.map(({ id }) => ({ type: "Upload" as const, id })),
+              { type: "Upload", id: "LIST" },
             ]
-          : [{ type: "Uploads", id: "LIST" }],
+          : [{ type: "Upload", id: "LIST" }],
     }),
     getUploadById: build.query<Upload, string>({
       query: (id) => "/upload.json",
-      providesTags: (_result, _error, id) => [{ type: "Uploads", id }],
+      providesTags: (_result, _error, id) => [{ type: "Upload", id }],
     }),
     postNewUpload: build.mutation<Upload, UploadData>({
       query: (data) => ({
@@ -23,7 +36,7 @@ const uploadsApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: [{ type: "Uploads", id: "LIST" }],
+      invalidatesTags: [{ type: "Upload", id: "LIST" }],
     }),
   }),
 });
@@ -32,4 +45,4 @@ export const {
   useGetAllUploadsQuery,
   useGetUploadByIdQuery,
   usePostNewUploadMutation,
-} = uploadsApi;
+} = uploadApi;

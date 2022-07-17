@@ -1,20 +1,16 @@
 import { Alert, Button, Form, Input, Radio, Switch } from "antd";
 import { useSearchParams } from "react-router-dom";
-import type { UploadMatch } from "../../app/models/upload";
-import { usePostNewUploadMutation } from "../../app/services/uploads";
+import type { UploadData } from "../../app/services/upload";
+import { usePostNewUploadMutation } from "../../app/services/upload";
 
-type Values = {
+type Values = UploadData & {
   url: string;
-  name: string;
-  scope: string;
-  version: string;
   advanced: boolean;
-  match: UploadMatch;
 };
 
-interface NewUploadFormProps {
+type NewUploadFormProps = {
   onFinish: (id: string) => void;
-}
+};
 
 const { Item, useForm } = Form;
 const { Group } = Radio;

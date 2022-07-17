@@ -1,5 +1,6 @@
 import { Navigate, useParams } from "react-router-dom";
-import { useGetUploadByIdQuery } from "../../app/services/uploads";
+import { useGetUploadByIdQuery } from "../../app/services/upload";
+import UploadDashboard from "../../components/upload-dashboard/UploadDashboard";
 
 const Upload = () => {
   const { id } = useParams<"id">();
@@ -14,16 +15,11 @@ const Upload = () => {
     return <span>Loading...</span>;
   }
 
-  if (error) {
+  if (error || !upload) {
     return <span>Error!</span>;
   }
 
-  return (
-    <>
-      <p>{id}</p>
-      <p>{JSON.stringify(upload)}</p>
-    </>
-  );
+  return <UploadDashboard upload={upload} />;
 };
 
 export default Upload;

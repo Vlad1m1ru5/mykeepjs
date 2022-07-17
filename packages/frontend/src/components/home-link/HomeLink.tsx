@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import styles from "./HomeLink.module.less";
 
-interface HomeLinkProps {
+type HomeLinkProps = {
   href: string;
   children?: ReactNode;
-}
+};
 
 const HomeLink = ({ href, children }: HomeLinkProps) => {
   return (
