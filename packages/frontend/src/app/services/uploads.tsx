@@ -1,18 +1,5 @@
+import type { Upload, UploadData } from "../models/upload";
 import { api } from "./api";
-
-type UploadMatch = "major" | "minor" | "patch";
-
-type UploadData = {
-  name: string;
-  scope: string;
-  version: string;
-  match: UploadMatch;
-};
-
-type Upload = {
-  id: string;
-  data: UploadData;
-};
 
 const uploadsApi = api.injectEndpoints({
   endpoints: (build) => ({

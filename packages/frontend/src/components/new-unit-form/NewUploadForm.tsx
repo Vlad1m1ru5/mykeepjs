@@ -1,5 +1,6 @@
 import { Alert, Button, Form, Input, Radio, Switch } from "antd";
 import { useSearchParams } from "react-router-dom";
+import type { UploadMatch } from "../../app/models/upload";
 import { usePostNewUploadMutation } from "../../app/services/uploads";
 
 type Values = {
@@ -8,14 +9,14 @@ type Values = {
   scope: string;
   version: string;
   advanced: boolean;
-  match: "major" | "minor" | "patch";
+  match: UploadMatch;
 };
 
 interface NewUploadFormProps {
   onFinish: (id: string) => void;
 }
 
-const { Item } = Form;
+const { Item, useForm } = Form;
 const { Group } = Radio;
 
 const labelCol = { span: 4 };
@@ -27,6 +28,8 @@ const matchOptions = [
 ];
 
 const NewUploadForm = ({ onFinish }: NewUploadFormProps) => {
+  const [form] = useForm<Values>();
+
   const [postNewUpload, { error, isLoading }] = usePostNewUploadMutation();
   const message =
     error &&
@@ -57,6 +60,7 @@ const NewUploadForm = ({ onFinish }: NewUploadFormProps) => {
   return (
     <Form
       name="new-upload"
+      form={form}
       labelCol={labelCol}
       initialValues={initialValues}
       disabled={isLoading}
