@@ -1,7 +1,7 @@
 import { Button, Result } from "antd";
 import { Link } from "react-router-dom";
 
-const NoMatch = () => {
+const NotFound = () => {
   return (
     <Result
       status={404}
@@ -16,4 +16,4 @@ const NoMatch = () => {
   );
 };
 
-export default NoMatch;
+export default NotFound;

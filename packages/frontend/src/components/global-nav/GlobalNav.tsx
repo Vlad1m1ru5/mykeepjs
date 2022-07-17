@@ -1,13 +1,20 @@
 import { Menu } from "antd";
-import { NavLink } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 
 const GlobalNav = () => {
+  const navigate = useNavigate();
+  const match = useMatch("/*");
+  const selectedKeys = match ? [match.pathname] : [];
+
+  const onClick = ({ key }: { key: string }) => {
+    navigate(key);
+  };
+
   return (
-    <Menu>
-      <Menu.Item key="/uploads/new">
-        <NavLink to="/uploads/new">New Upload</NavLink>
-      </Menu.Item>
-    </Menu>
+    <Menu
+      selectedKeys={selectedKeys}
+      items={[{ key: "/uploads/new", label: "New Upload", onClick }]}
+    />
   );
 };
 

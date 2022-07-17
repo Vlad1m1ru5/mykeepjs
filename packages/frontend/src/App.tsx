@@ -4,16 +4,18 @@ import styles from "./App.module.less";
 import AppLogo from "./components/app-logo/AppLogo";
 import GlobalNav from "./components/global-nav/GlobalNav";
 
+const { Content, Sider } = Layout;
+
 const App = () => {
   return (
-    <Layout className={styles.app}>
-      <Layout.Sider theme="light">
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider theme="light">
         <AppLogo />
         <GlobalNav />
-      </Layout.Sider>
-      <Layout.Content className={styles.appContent}>
+      </Sider>
+      <Content className={styles.appContent}>
         <Outlet />
-      </Layout.Content>
+      </Content>
     </Layout>
   );
 };

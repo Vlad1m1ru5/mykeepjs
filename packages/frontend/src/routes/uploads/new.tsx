@@ -1,11 +1,19 @@
-import { Card, Form } from "antd";
+import { Card } from "antd";
+import { useNavigate } from "react-router-dom";
+import NewUploadForm from "../../components/new-unit-form/NewUploadForm";
 
-const NewUploads = () => {
+const NewUpload = () => {
+  const navigate = useNavigate();
+
+  const handleFinish = async (id: string) => {
+    navigate(`/uploads/${id}`);
+  };
+
   return (
     <Card>
-      <Form></Form>
+      <NewUploadForm onFinish={handleFinish} />
     </Card>
   );
 };
 
-export default NewUploads;
+export default NewUpload;
