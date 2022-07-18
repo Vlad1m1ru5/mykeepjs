@@ -3,21 +3,21 @@ import { useSearchParams } from "react-router-dom";
 import type { UploadData } from "../../app/services/upload";
 import { usePostNewUploadMutation } from "../../app/services/upload";
 
-type Values = UploadData & {
+interface Values extends UploadData {
   url: string;
   advanced: boolean;
-};
+}
 
-type NewUploadFormProps = {
+interface NewUploadFormProps {
   onFinish: (id: string) => void;
-};
+}
 
 const { Item, useForm } = Form;
 const { Group } = Radio;
 
-const labelCol = { span: 4 };
-const wrapperCol = { offset: 4 };
-const matchOptions = [
+const LABEL_COL = { span: 4 };
+const WRAPPER_COL = { offset: 4 };
+const MATCH_OPTIONS = [
   { label: "Major", value: "major" },
   { label: "Minor", value: "minor" },
   { label: "Patch", value: "patch" },
@@ -27,6 +27,12 @@ const NewUploadForm = ({ onFinish }: NewUploadFormProps) => {
   const [form] = useForm<Values>();
 
   const [postNewUpload, { error, isLoading }] = usePostNewUploadMutation();
+
+  const handleFinish = async (uploadData: UploadData) => {
+    const { id } = await postNewUpload(uploadData).unwrap();
+    onFinish(id);
+  };
+
   const message =
     error &&
     String(
@@ -44,20 +50,15 @@ const NewUploadForm = ({ onFinish }: NewUploadFormProps) => {
   const version = searchParams.get("version");
   const advanced = searchParams.get("advanced") === "true";
   const match =
-    matchOptions.find(({ value }) => value === searchParams.get("match")) ??
+    MATCH_OPTIONS.find(({ value }) => value === searchParams.get("match")) ??
     "major";
   const initialValues = { match, advanced, name, scope, url, version };
-
-  const handleFinish = async (values: Values) => {
-    const { id } = await postNewUpload(values).unwrap();
-    onFinish(id);
-  };
 
   return (
     <Form
       name="new-upload"
       form={form}
-      labelCol={labelCol}
+      labelCol={LABEL_COL}
       initialValues={initialValues}
       disabled={isLoading}
       onFinish={handleFinish}
@@ -79,7 +80,7 @@ const NewUploadForm = ({ onFinish }: NewUploadFormProps) => {
                 <Input />
               </Item>
               <Item name="match" label="Match">
-                <Group options={matchOptions} />
+                <Group options={MATCH_OPTIONS} />
               </Item>
             </Item>
           ) : (
@@ -90,11 +91,11 @@ const NewUploadForm = ({ onFinish }: NewUploadFormProps) => {
         }
       </Item>
       {Boolean(message) && (
-        <Item wrapperCol={wrapperCol}>
+        <Item wrapperCol={WRAPPER_COL}>
           <Alert type="error" message={message} />
         </Item>
       )}
-      <Item wrapperCol={wrapperCol}>
+      <Item wrapperCol={WRAPPER_COL}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

@@ -1,8 +1,8 @@
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
-import styles from "./App.module.less";
-import AppLogo from "./components/app-logo/AppLogo";
-import GlobalNav from "./components/global-nav/GlobalNav";
+import styles from "./app.module.less";
+import AppLogo from "./components/app-logo/app-logo";
+import GlobalNav from "./components/global-nav/global-nav";
 
 const { Content, Sider } = Layout;
 

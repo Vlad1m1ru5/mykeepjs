@@ -1,4 +1,4 @@
-import styles from "./HomeLogo.module.less";
+import styles from "./home-logo.module.less";
 import logo from "./logo.svg";
 
 const HomeLogo = () => {

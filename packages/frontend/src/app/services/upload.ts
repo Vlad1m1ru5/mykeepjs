@@ -1,16 +1,16 @@
 import { api } from "./api";
 
-export type Upload = {
+export interface Upload {
   id: string;
   data: UploadData;
-};
+}
 
-export type UploadData = {
+export interface UploadData {
   name: string;
   scope: string;
   version: string;
   match: UploadMatch;
-};
+}
 
 export type UploadMatch = "major" | "minor" | "patch";
 
@@ -27,7 +27,7 @@ const uploadApi = api.injectEndpoints({
           : [{ type: "Upload", id: "LIST" }],
     }),
     getUploadById: build.query<Upload, string>({
-      query: (id) => "/upload.json",
+      query: () => "/upload.json",
       providesTags: (_result, _error, id) => [{ type: "Upload", id }],
     }),
     postNewUpload: build.mutation<Upload, UploadData>({

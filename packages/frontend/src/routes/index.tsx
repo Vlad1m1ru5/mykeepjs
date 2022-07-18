@@ -1,6 +1,6 @@
 import { Result } from "antd";
-import HomeLink from "../components/home-link/HomeLink";
-import HomeLogo from "../components/home-logo/HomLogo";
+import HomeLink from "../components/home-link/home-link";
+import HomeLogo from "../components/home-logo/home-logo";
 
 const Home = () => {
   return (
